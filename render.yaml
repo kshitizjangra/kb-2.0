@@ -46,7 +46,8 @@ services:
   # Celery background worker (connected to Render Redis)
   - type: worker
     name: kb-celery
-    runtime: starter
+    runtime: docker
+    plan: starter
     rootDir: backend
     dockerfilePath: ./Dockerfile
     dockerCommand: celery -A config worker -l info --concurrency=2
