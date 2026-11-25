@@ -1,0 +1,323 @@
+.hero {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+.hero-stage {
+  max-width: min(1080px, 100%);
+}
+
+.hero-collage {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 40%;
+}
+
+.hero-collage-motion {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 45%;
+}
+
+.hero-torn {
+  position: absolute;
+  left: 50%;
+  top: 26px;
+  width: min(46vw, 470px);
+  height: 300px;
+  transform: translateX(-50%) rotate(-7deg);
+  background: linear-gradient(115deg, #efc9d6 0%, #e7b4c6 45%, #f2d2dc 100%);
+  clip-path: polygon(
+    0% 4%, 7% 0%, 16% 3%, 27% 0.5%, 36% 2.5%, 47% 0%, 58% 2%, 69% 0%, 80% 2.5%, 91% 0.5%, 100% 3%,
+    99% 16%, 100% 30%, 98.5% 44%, 100% 58%, 99% 72%, 100% 86%, 98.6% 100%,
+    88% 98%, 76% 100%, 64% 98.4%, 52% 100%, 40% 98%, 28% 100%, 16% 98.4%, 6% 100%, 0% 97%,
+    1.5% 84%, 0% 70%, 1.4% 56%, 0% 42%, 1.2% 28%, 0% 14%
+  );
+  opacity: 0.92;
+}
+
+.hero-torn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 60%);
+}
+
+.hero-filmstrip {
+  position: absolute;
+  left: 26%;
+  top: 8px;
+  width: min(24vw, 258px);
+  height: 360px;
+  transform: rotate(-11deg);
+  background: #171512;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 0;
+  z-index: 2;
+  background-image: radial-gradient(circle, rgba(243, 240, 232, 0.55) 3px, transparent 3.5px),
+    radial-gradient(circle, rgba(243, 240, 232, 0.55) 3px, transparent 3.5px);
+  background-size: 18px 18px, 18px 18px;
+  background-position: 4px 0, calc(100% - 4px) 0;
+  background-repeat: repeat-y, repeat-y;
+}
+
+.hero-filmstrip span {
+  position: relative;
+  display: block;
+  height: 84px;
+  margin-inline: 26px;
+  background: linear-gradient(160deg, #3c3833, #232120);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.hero-kraft {
+  position: absolute;
+  left: 11%;
+  top: 190px;
+  width: 196px;
+  height: 246px;
+  transform: rotate(-13deg);
+  background: linear-gradient(150deg, #c1976b, #a97c51);
+  clip-path: polygon(2% 0%, 100% 3%, 97% 100%, 0% 96%);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  padding: 22px;
+  color: #43331f;
+}
+
+.hero-kraft-line {
+  display: block;
+  height: 1px;
+  background: rgba(48, 35, 20, 0.4);
+  margin-bottom: 12px;
+}
+
+.hero-kraft-line--short {
+  width: 60%;
+}
+
+.hero-kraft-photo {
+  position: relative;
+  width: 100%;
+  height: 122px;
+  margin-top: 10px;
+  border: 3px solid #f5efe0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  transform: rotate(2deg);
+}
+
+.hero-kraft-stamp {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+.hero-polaroid {
+  position: absolute;
+  left: 50%;
+  top: 52px;
+  width: min(28vw, 306px);
+  height: 372px;
+  transform: translateX(-50%) rotate(2.5deg);
+  z-index: 4;
+  transition: transform 0.35s var(--ease);
+}
+
+.hero-polaroid:hover {
+  transform: translateX(-50%) translateY(-4px) rotate(1deg);
+}
+
+.hero-tape-a,
+.hero-tape-b {
+  z-index: 6;
+}
+
+.hero-tape-dark {
+  position: absolute;
+  left: 20%;
+  top: 424px;
+  width: 130px;
+  height: 30px;
+  transform: rotate(-17deg);
+  background: rgba(38, 36, 33, 0.9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+
+.hero-stamp-main {
+  position: absolute;
+  right: 11%;
+  top: 28px;
+  width: min(19vw, 208px);
+  height: 168px;
+  rotate: 7deg;
+  z-index: 3;
+  animation: kb-swing 2.6s ease-in-out infinite alternate;
+}
+
+.hero-stamp-small {
+  position: absolute;
+  left: 17%;
+  bottom: 34px;
+  width: 132px;
+  height: 112px;
+  transform: rotate(-8deg);
+  z-index: 4;
+  transition: transform 0.35s var(--ease);
+}
+
+.hero-stamp-small:hover {
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+.hero-postmark {
+  position: absolute;
+  right: 17%;
+  top: 196px;
+  width: 116px;
+  color: #efe7d7;
+  opacity: 0.75;
+  rotate: 11deg;
+  z-index: 5;
+  animation: kb-spin-slow 20s linear infinite;
+}
+
+.hero-pin {
+  z-index: 9;
+}
+
+.hero-sparkle {
+  left: 62%;
+  top: 300px;
+  color: var(--pink);
+  opacity: 0.9;
+  animation: kb-swing 2.6s ease-in-out infinite alternate;
+}
+
+.hero-arrow {
+  left: 63%;
+  bottom: 24px;
+  z-index: 6;
+  color: rgba(243, 240, 232, 0.72);
+  transform: scaleX(-1) rotate(108deg);
+}
+
+.hero-sticker-star {
+  right: 9%;
+  top: 196px;
+  transform: rotate(12deg);
+}
+
+.hero-sticker-pin-tape {
+  left: 9%;
+  top: 162px;
+  transform: rotate(-14deg);
+}
+
+.hero-sticker-pushpin {
+  left: 27%;
+  top: -2px;
+  transform: rotate(-8deg);
+  z-index: 8;
+}
+
+@media (max-width: 900px) {
+  .hero-filmstrip {
+    left: 18%;
+  }
+  .hero-kraft {
+    left: 6%;
+    top: 200px;
+    width: 150px;
+    height: 200px;
+  }
+  .hero-stamp-main {
+    right: 4%;
+  }
+  .hero-stamp-small {
+    left: 10%;
+  }
+  .hero-postmark {
+    right: 12%;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-collage {
+    transform: scale(0.62);
+    transform-origin: 50% 30%;
+  }
+  .hero-torn {
+    width: 430px;
+    height: 280px;
+    top: 10px;
+  }
+  .hero-polaroid {
+    width: 270px;
+    height: 340px;
+    top: 40px;
+  }
+  .hero-filmstrip {
+    left: 16%;
+    width: 224px;
+    height: 330px;
+  }
+  .hero-kraft {
+    left: 2%;
+    top: 190px;
+  }
+  .hero-stamp-main {
+    right: 0%;
+    top: 30px;
+    width: 180px;
+    height: 148px;
+  }
+  .hero-stamp-small {
+    left: 4%;
+    bottom: 6px;
+  }
+  .hero-postmark {
+    right: 8%;
+    top: 180px;
+  }
+  .hero-arrow {
+    left: 38%;
+    bottom: -36px;
+  }
+  .hero-sticker-star,
+  .hero-sticker-pin-tape,
+  .hero-sticker-pushpin {
+    display: none;
+  }
+  .hero-sparkle {
+    top: 280px;
+  }
+  .hero-tape-dark {
+    top: 400px;
+    left: 8%;
+  }
+  .hero-tape-b {
+    left: 60%;
+    top: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-collage {
+    transform: scale(0.5);
+    transform-origin: 50% 26%;
+  }
+  .hero-name {
+    font-size: clamp(46px, 13.4vw, 60px);
+  }
+}

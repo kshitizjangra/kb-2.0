@@ -1,0 +1,100 @@
+databases:
+  - name: kb-postgres
+    databaseName: kamna_db
+    user: kamna_user
+    plan: free
+
+services:
+  # Managed Redis-compatible broker & cache for Django + Celery
+  - type: keyvalue
+    name: kb-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+    ipAllowList: []
+
+  # Django API backend
+  - type: web
+    name: kb-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: "8765"
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "*"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kb-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: kb-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: keyvalue
+          name: kb-redis
+          property: connectionString
+
+  # Celery background worker (connected to Render Redis)
+  - type: worker
+    name: kb-celery
+    runtime: starter
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerCommand: celery -A config worker -l info --concurrency=2
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kb-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: kb-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: keyvalue
+          name: kb-redis
+          property: connectionString
+
+  # Next.js 16 + Payload CMS 3.x behind Nginx reverse proxy
+  - type: web
+    name: kb-web-2
+    runtime: docker
+    plan: starter
+    rootDir: frontend-2.0
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    disk:
+      name: payload-data
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PAYLOAD_SECRET
+        generateValue: true
+      - key: DATABASE_URI
+        value: file:/app/data/payload.db
+      - key: NEXT_PUBLIC_API_URL
+        value: /backend-api
+      - key: BACKEND_ORIGIN
+        fromService:
+          type: web
+          name: kb-backend
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: GEMINI_API_KEY
+        sync: false

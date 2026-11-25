@@ -1,0 +1,33 @@
+.DS_Store
+
+# Secrets & env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Payload local SQLite
+frontend-2.0/data/
+
+# Python / Django
+__pycache__/
+*.pyc
+.venv/
+*.sqlite3
+db.sqlite3
+
+# Reference / local-only folders
+kamna-portfolio-web-main/
+kb-reference/
+graphify-out/
+__agent__/
+tasks/

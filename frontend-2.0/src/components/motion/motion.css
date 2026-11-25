@@ -1,0 +1,31 @@
+.kb-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--pink);
+  opacity: 0.85;
+  transform-origin: 0% 50%;
+  z-index: 95;
+  pointer-events: none;
+}
+
+/* Tactile hover lift on polaroids, stamps, and paper notes */
+.polaroid,
+.stamp {
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+@media (hover: hover) {
+  .polaroid:hover,
+  .stamp:hover {
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.5), 0 2px 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kb-scroll-progress {
+    display: none;
+  }
+}

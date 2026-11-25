@@ -1,0 +1,367 @@
+/* ---------- Ask Kamna floating assistant (editorial dark paper) ---------- */
+
+.kamna-chat-launcher {
+  position: fixed;
+  right: clamp(14px, 2.4vw, 26px);
+  bottom: clamp(14px, 2.4vw, 26px);
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 7px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.kamna-chat-launcher:hover {
+  border-color: var(--line-strong);
+  background: #191715;
+  transform: translateY(-1px);
+}
+
+.kamna-chat-launcher:focus-visible {
+  outline: 1px solid var(--pink);
+  outline-offset: 3px;
+}
+
+.kamna-chat-avatar-wrap {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  flex: none;
+}
+
+.kamna-chat-avatar-wrap img {
+  object-fit: cover;
+}
+
+.kamna-chat-launcher-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- drawer ---------- */
+
+.kamna-chat-drawer {
+  position: fixed;
+  right: clamp(14px, 2.4vw, 26px);
+  bottom: clamp(14px, 2.4vw, 26px);
+  z-index: 95;
+  width: min(392px, calc(100vw - 24px));
+  height: min(560px, calc(100dvh - 32px));
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.72);
+  overflow: hidden;
+}
+
+.kamna-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  flex: none;
+}
+
+.kamna-chat-header-avatar {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  flex: none;
+}
+
+.kamna-chat-header-avatar img {
+  object-fit: cover;
+}
+
+.kamna-chat-header-meta {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.kamna-chat-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.kamna-chat-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kamna-chat-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pink);
+  flex: none;
+}
+
+.kamna-chat-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--muted);
+  flex: none;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.kamna-chat-close:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: rgba(243, 240, 232, 0.05);
+}
+
+.kamna-chat-close:focus-visible {
+  outline: 1px solid var(--pink);
+  outline-offset: 2px;
+}
+
+/* ---------- messages ---------- */
+
+.kamna-chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overscroll-behavior: contain;
+}
+
+.kamna-chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.kamna-chat-row.is-user {
+  justify-content: flex-end;
+}
+
+.kamna-chat-msg-avatar {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  flex: none;
+}
+
+.kamna-chat-msg-avatar img {
+  object-fit: cover;
+}
+
+.kamna-chat-bubble {
+  max-width: 84%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+.kamna-chat-bubble.is-user {
+  background: #1d1a18;
+  border-color: rgba(244, 179, 203, 0.35);
+  color: var(--ink);
+}
+
+.kamna-chat-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.kamna-chat-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: var(--pink);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.kamna-chat-source-link:hover {
+  border-color: var(--pink);
+  background: rgba(244, 179, 203, 0.08);
+}
+
+.kamna-chat-source-link:focus-visible {
+  outline: 1px solid var(--pink);
+  outline-offset: 2px;
+}
+
+.kamna-chat-typing {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- quick prompt chips ---------- */
+
+.kamna-chat-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--line-soft);
+  background: var(--bg);
+  flex: none;
+}
+
+.kamna-chat-chip {
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--muted);
+  text-align: left;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.kamna-chat-chip:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--pink);
+  background: rgba(244, 179, 203, 0.07);
+}
+
+.kamna-chat-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.kamna-chat-chip:focus-visible {
+  outline: 1px solid var(--pink);
+  outline-offset: 2px;
+}
+
+/* ---------- form ---------- */
+
+.kamna-chat-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  flex: none;
+}
+
+.kamna-chat-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  padding: 6px 2px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  caret-color: var(--pink);
+}
+
+.kamna-chat-form input::placeholder {
+  color: var(--faint);
+  opacity: 1;
+}
+
+.kamna-chat-form input:focus {
+  outline: none;
+}
+
+.kamna-chat-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--bg);
+  flex: none;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.kamna-chat-send:hover:not(:disabled) {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #171412;
+}
+
+.kamna-chat-send:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.kamna-chat-send:focus-visible {
+  outline: 1px solid var(--pink);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .kamna-chat-drawer {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    height: min(520px, calc(100dvh - 24px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kamna-chat-dot {
+    animation: none;
+  }
+  .kamna-chat-launcher:hover {
+    transform: none;
+  }
+}
