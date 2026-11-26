@@ -17,8 +17,8 @@ services:
     name: kb-backend
     runtime: docker
     plan: free
-    rootDir: backend
-    dockerfilePath: ./Dockerfile
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
     envVars:
       - key: PORT
         value: "8765"
@@ -48,8 +48,8 @@ services:
     name: kb-celery
     runtime: docker
     plan: starter
-    rootDir: backend
-    dockerfilePath: ./Dockerfile
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
     dockerCommand: celery -A config worker -l info --concurrency=2
     envVars:
       - key: DJANGO_DEBUG
@@ -76,8 +76,8 @@ services:
     name: kb-web-2
     runtime: docker
     plan: starter
-    rootDir: frontend-2.0
-    dockerfilePath: ./Dockerfile
+    dockerContext: frontend-2.0
+    dockerfilePath: frontend-2.0/Dockerfile
     healthCheckPath: /
     disk:
       name: payload-data
